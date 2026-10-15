@@ -89,6 +89,63 @@
       "no",
       "cancel",
       "reject"
+    ],
+    "get_memory_status": [
+      "how much ram do I have",
+      "check available memory",
+      "how much memory is available",
+      "check my ram"
+    ],
+    "get_display_status": [
+      "what refresh rate is my display",
+      "check my screen refresh rate",
+      "tell me the display hertz"
+    ],
+    "get_thermal_status": [
+      "what is my phone temperature",
+      "check the phone temperature",
+      "tell me the thermal status"
+    ],
+    "get_torch_status": [
+      "flashlight status",
+      "is the flashlight on",
+      "check the flashlight"
+    ],
+    "read_access": [
+      "do I have root",
+      "check root access",
+      "is shizuku authorized",
+      "check root and shizuku"
+    ],
+    "get_installed_apps": [
+      "how many apps do I have",
+      "list installed apps",
+      "check installed applications",
+      "count my apps"
+    ],
+    "analyze_device": [
+      "analyze the device",
+      "diagnose my phone",
+      "check my device",
+      "run a device diagnostic"
+    ],
+    "optimize_device": [
+      "optimize my phone",
+      "optimize my device",
+      "improve performance",
+      "tune my phone"
+    ],
+    "uninstall_application": [
+      "uninstall {app}",
+      "remove the app {app}"
+    ],
+    "enable_gaming_mode": [
+      "enable game mode",
+      "turn on gaming mode"
+    ],
+    "disable_gaming_mode": [
+      "disable game mode",
+      "turn off gaming mode"
     ]
   },
   "responses": {
@@ -150,7 +207,13 @@
     "openTeuwToContinue": "Open TEUW to continue this action.",
     "tapToScreenshot": "Tap to open Android's permission screen and save a screenshot.",
     "tapToRecord": "Tap to approve silent screen recording.",
-    "tapToStopRecording": "Tap to request that screen recording stop."
+    "tapToStopRecording": "Tap to request that screen recording stop.",
+    "torchStateOn": "The flashlight is on.",
+    "torchStateOff": "The flashlight is off.",
+    "optimizing": "Preparing the device analysis and optimization.",
+    "analyzeDevice": "Preparing the device diagnostic.",
+    "uninstallConfirmation": "I will request to uninstall {{app}}. Android may ask you to confirm.",
+    "commandNotAvailable": "This command is not available in this language pack yet."
   },
   "ui": {
     "languageName": "J.A.R.V.I.S. language",
