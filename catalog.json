@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "1.0.0",
+  "repository": "Devicex18/TEUW-Language-Packs",
+  "releaseTag": "language-models-v1.0.0",
+  "minimumAppVersionCode": 44,
+  "packages": [
+    {
+      "packId": "es-MX",
+      "version": "1.0.0",
+      "displayName": "Español (México)",
+      "url": "https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/es-MX/pack.json",
+      "sha256": "b3fd349f43e9990c418b57c965b6e86629e4fa07b79d4b20b442052e89fea0a7",
+      "sizeBytes": 3836,
+      "recognitionModelId": "vosk-model-small-es-0.42",
+      "modelStatus": "awaiting_first_github_release",
+      "modelSizeApproxBytes": 39000000,
+      "modelLicense": "Apache-2.0"
+    },
+    {
+      "packId": "en-US",
+      "version": "1.0.0",
+      "displayName": "English (United States)",
+      "url": "https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/en-US/pack.json",
+      "sha256": "6fff7a743bd676d1a8f38e923264808bce32a463d4cb735c1bb926f77c4acf0e",
+      "sizeBytes": 3639,
+      "recognitionModelId": "vosk-model-small-en-us-0.15",
+      "modelStatus": "awaiting_first_github_release",
+      "modelSizeApproxBytes": 40000000,
+      "modelLicense": "Apache-2.0"
+    }
+  ]
+}
