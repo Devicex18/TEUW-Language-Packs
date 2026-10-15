@@ -1,0 +1,213 @@
+name: Publish TEUW offline language models
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-language-models.yml"
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "GitHub Release tag for the model archives"
+        required: true
+        default: "language-models-v1.0.0"
+        type: string
+      model_scope:
+        description: "Which compact offline recognition models to publish"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - es-MX
+          - en-US
+
+permissions:
+  contents: write
+
+concurrency:
+  group: teuw-language-model-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Download, verify and publish offline models
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout language-pack repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate the selected source branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
+            echo "::error::Run this workflow from the main branch."
+            exit 1
+          fi
+          test -f catalog.json
+          test -f packs/es-MX/pack.json
+          test -f packs/en-US/pack.json
+          command -v jq
+          command -v gh
+
+      - name: Download and validate upstream model archives
+        id: models
+        env:
+          MODEL_SCOPE: ${{ github.event.inputs.model_scope || 'both' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${RUNNER_TEMP}/teuw-models"
+          cd "${RUNNER_TEMP}/teuw-models"
+          if [[ "${MODEL_SCOPE}" == "both" || "${MODEL_SCOPE}" == "es-MX" ]]; then
+            curl --fail --location --retry 3 --retry-delay 2 \
+              --output vosk-model-small-es-0.42.zip \
+              https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip
+            unzip -tq vosk-model-small-es-0.42.zip
+            sha256sum vosk-model-small-es-0.42.zip >> checksums.sha256
+            echo "es=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "es=false" >> "${GITHUB_OUTPUT}"
+          fi
+          if [[ "${MODEL_SCOPE}" == "both" || "${MODEL_SCOPE}" == "en-US" ]]; then
+            curl --fail --location --retry 3 --retry-delay 2 \
+              --output vosk-model-small-en-us-0.15.zip \
+              https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+            unzip -tq vosk-model-small-en-us-0.15.zip
+            sha256sum vosk-model-small-en-us-0.15.zip >> checksums.sha256
+            echo "en=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "en=false" >> "${GITHUB_OUTPUT}"
+          fi
+          test -s checksums.sha256
+          cat checksums.sha256
+
+      - name: Prepare verified package metadata
+        env:
+          RELEASE_TAG: ${{ github.event.inputs.release_tag || 'language-models-v1.0.0' }}
+          PUBLISH_ES: ${{ steps.models.outputs.es }}
+          PUBLISH_EN: ${{ steps.models.outputs.en }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          MODEL_DIR="${RUNNER_TEMP}/teuw-models"
+          RELEASE_BASE="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}"
+
+          if [[ "${PUBLISH_ES}" == "true" ]]; then
+            FILE="${MODEL_DIR}/vosk-model-small-es-0.42.zip"
+            HASH="$(sha256sum "${FILE}" | awk '{print $1}')"
+            SIZE="$(stat -c '%s' "${FILE}")"
+            jq --arg url "${RELEASE_BASE}/vosk-model-small-es-0.42.zip" \
+               --arg sha "${HASH}" --argjson size "${SIZE}" \
+               '.recognitionModel.archiveUrl=$url
+                | .recognitionModel.archiveSha256=$sha
+                | .recognitionModel.archiveSizeBytes=$size
+                | .recognitionModel.distributionStatus="available_github_release"' \
+               packs/es-MX/pack.json > packs/es-MX/pack.json.tmp
+            mv packs/es-MX/pack.json.tmp packs/es-MX/pack.json
+          fi
+
+          if [[ "${PUBLISH_EN}" == "true" ]]; then
+            FILE="${MODEL_DIR}/vosk-model-small-en-us-0.15.zip"
+            HASH="$(sha256sum "${FILE}" | awk '{print $1}')"
+            SIZE="$(stat -c '%s' "${FILE}")"
+            jq --arg url "${RELEASE_BASE}/vosk-model-small-en-us-0.15.zip" \
+               --arg sha "${HASH}" --argjson size "${SIZE}" \
+               '.recognitionModel.archiveUrl=$url
+                | .recognitionModel.archiveSha256=$sha
+                | .recognitionModel.archiveSizeBytes=$size
+                | .recognitionModel.distributionStatus="available_github_release"' \
+               packs/en-US/pack.json > packs/en-US/pack.json.tmp
+            mv packs/en-US/pack.json.tmp packs/en-US/pack.json
+          fi
+
+          ES_HASH="$(sha256sum packs/es-MX/pack.json | awk '{print $1}')"
+          ES_SIZE="$(stat -c '%s' packs/es-MX/pack.json)"
+          EN_HASH="$(sha256sum packs/en-US/pack.json | awk '{print $1}')"
+          EN_SIZE="$(stat -c '%s' packs/en-US/pack.json)"
+
+          jq --arg tag "${RELEASE_TAG}" \
+             --arg esHash "${ES_HASH}" --argjson esSize "${ES_SIZE}" \
+             --arg enHash "${EN_HASH}" --argjson enSize "${EN_SIZE}" \
+             --arg esStatus "$(jq -r '.recognitionModel.distributionStatus' packs/es-MX/pack.json)" \
+             --arg enStatus "$(jq -r '.recognitionModel.distributionStatus' packs/en-US/pack.json)" \
+             --argjson esModelSize "$(jq -r '.recognitionModel.archiveSizeBytes // 0' packs/es-MX/pack.json)" \
+             --argjson enModelSize "$(jq -r '.recognitionModel.archiveSizeBytes // 0' packs/en-US/pack.json)" \
+             '.releaseTag=$tag
+              | .packages = [
+                  {
+                    packId:"es-MX", version:"1.0.0", displayName:"Español (México)",
+                    url:"https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/es-MX/pack.json",
+                    sha256:$esHash, sizeBytes:$esSize,
+                    recognitionModelId:"vosk-model-small-es-0.42", modelStatus:$esStatus,
+                    modelSizeBytes:$esModelSize, modelLicense:"Apache-2.0"
+                  },
+                  {
+                    packId:"en-US", version:"1.0.0", displayName:"English (United States)",
+                    url:"https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/en-US/pack.json",
+                    sha256:$enHash, sizeBytes:$enSize,
+                    recognitionModelId:"vosk-model-small-en-us-0.15", modelStatus:$enStatus,
+                    modelSizeBytes:$enModelSize, modelLicense:"Apache-2.0"
+                  }
+                ]' catalog.json > catalog.json.tmp
+          mv catalog.json.tmp catalog.json
+
+          {
+            echo "TEUW offline model archives"
+            echo "Release tag: ${RELEASE_TAG}"
+            echo "Source license: Apache-2.0 (upstream Vosk model catalog)"
+            echo
+            cat "${MODEL_DIR}/checksums.sha256"
+          } > "${MODEL_DIR}/MODEL-CHECKSUMS.txt"
+
+      - name: Publish model ZIP files as Release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.inputs.release_tag || 'language-models-v1.0.0' }}
+          PUBLISH_ES: ${{ steps.models.outputs.es }}
+          PUBLISH_EN: ${{ steps.models.outputs.en }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          MODEL_DIR="${RUNNER_TEMP}/teuw-models"
+          ASSETS=()
+          if [[ "${PUBLISH_ES}" == "true" ]]; then ASSETS+=("${MODEL_DIR}/vosk-model-small-es-0.42.zip"); fi
+          if [[ "${PUBLISH_EN}" == "true" ]]; then ASSETS+=("${MODEL_DIR}/vosk-model-small-en-us-0.15.zip"); fi
+          ASSETS+=("${MODEL_DIR}/MODEL-CHECKSUMS.txt")
+
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            gh release upload "${RELEASE_TAG}" "${ASSETS[@]}" --clobber
+          else
+            gh release create "${RELEASE_TAG}" "${ASSETS[@]}" \
+              --title "TEUW offline language models ${RELEASE_TAG}" \
+              --notes "Compact upstream Vosk models for TEUW, redistributed under Apache License 2.0 as listed by the official model catalog. Model files are separate from the app APK. SHA-256 checksums are included in MODEL-CHECKSUMS.txt. See MODEL-SOURCES.md for attribution."
+          fi
+
+      - name: Publish updated SHA-256 metadata to main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog.json packs/es-MX/pack.json packs/en-US/pack.json
+          if git diff --cached --quiet; then
+            echo "Metadata is already up to date."
+          else
+            git commit -m "Publish verified TEUW offline language model metadata"
+            git push origin HEAD:main
+          fi
+
+      - name: Print catalog and release summary
+        env:
+          RELEASE_TAG: ${{ github.event.inputs.release_tag || 'language-models-v1.0.0' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Published release: https://github.com/${GITHUB_REPOSITORY}/releases/tag/${RELEASE_TAG}"
+          jq '{catalogVersion, releaseTag, packages}' catalog.json
