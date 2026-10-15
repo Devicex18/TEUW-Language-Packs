@@ -140,7 +140,15 @@
     "chooseApp": "Elige una aplicación.",
     "noAppChosen": "No elegiste una aplicación.",
     "gameModeUnsupported": "Android no expone a una aplicación normal un control universal para activar el modo gamer de otras aplicaciones. No voy a fingir que fue activado.",
-    "genericFailure": "No pude completar la orden. {{reason}}"
+    "genericFailure": "No pude completar la orden. {{reason}}",
+    "assistantDisabled": "El asistente está desactivado.",
+    "microphonePermission": "Necesito permiso de micrófono para continuar.",
+    "languagePackMissing": "El paquete de idioma TEUW no está instalado. Abre Configuración, entra en Paquetes de idioma TEUW y descarga el idioma seleccionado.",
+    "initialGreeting": "Sí, te escucho.",
+    "notHeard": "No te escuché.",
+    "confirmationPrompt": "Operación solicitada: {{title}}. {{message}}. Di sí para continuar o no para cancelar.",
+    "choicePrompt": "{{title}}. {{options}}. Di el nombre o el número.",
+    "batteryUnavailable": "No pude leer el porcentaje de batería."
   },
   "ui": {
     "languageName": "Idioma de J.A.R.V.I.S.",
