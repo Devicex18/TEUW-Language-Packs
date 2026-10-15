@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "packId": "es-MX",
+  "version": "1.0.0",
+  "displayName": "Español (México)",
+  "language": {
+    "tag": "es-MX",
+    "baseLanguage": "es",
+    "region": "MX",
+    "ttsLocale": "es-MX",
+    "description": "Paquete de idioma de TEUW para comandos y respuestas del asistente en español mexicano."
+  },
+  "wakePhraseTemplates": [
+    "hey {{assistant_name}}",
+    "oye {{assistant_name}}",
+    "hola {{assistant_name}}"
+  ],
+  "recognitionModel": {
+    "engine": "vosk-android",
+    "modelId": "vosk-model-small-es-0.42",
+    "archiveUrl": "https://github.com/Devicex18/TEUW-Language-Packs/releases/download/language-models-v1.0.0/vosk-model-small-es-0.42.zip",
+    "archiveSha256": "PENDING_FIRST_MODEL_PUBLISH",
+    "archiveSizeBytes": null,
+    "sourceUrl": "https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip",
+    "sourceLicense": "Apache-2.0",
+    "modelAttribution": "Vosk small Spanish model; see MODEL-SOURCES.md",
+    "distributionStatus": "awaiting_first_github_release"
+  },
+  "commands": {
+    "open_application": [
+      "abre {app}",
+      "abre la aplicación {app}",
+      "abre la app {app}",
+      "inicia {app}",
+      "ejecuta {app}"
+    ],
+    "take_screenshot": [
+      "toma una captura de pantalla",
+      "haz una captura de pantalla",
+      "captura la pantalla",
+      "saca screenshot"
+    ],
+    "start_screen_recording": [
+      "graba la pantalla",
+      "inicia la grabación de pantalla",
+      "empieza a grabar la pantalla"
+    ],
+    "stop_screen_recording": [
+      "detén la grabación",
+      "deten la grabación de pantalla",
+      "para la grabación de pantalla",
+      "termina de grabar"
+    ],
+    "torch_on": [
+      "enciende la linterna",
+      "prende la linterna",
+      "activa el flash",
+      "enciende la luz"
+    ],
+    "torch_off": [
+      "apaga la linterna",
+      "apaga el flash",
+      "desactiva la luz"
+    ],
+    "get_battery_status": [
+      "cómo está la batería",
+      "dime el nivel de batería",
+      "consulta la batería"
+    ],
+    "set_max_refresh_rate": [
+      "pon la frecuencia máxima",
+      "usa la máxima frecuencia",
+      "activa la frecuencia más alta"
+    ],
+    "open_settings": [
+      "abre los ajustes",
+      "abre configuración"
+    ],
+    "cancel": [
+      "cancelar",
+      "cancela",
+      "detente",
+      "para"
+    ],
+    "confirmation_yes": [
+      "sí",
+      "confirmo",
+      "aceptar",
+      "adelante"
+    ],
+    "confirmation_no": [
+      "no",
+      "cancelar",
+      "rechazar"
+    ]
+  },
+  "responses": {
+    "ready": "Sí, te escucho.",
+    "listening": "Te escucho. Dime qué necesitas.",
+    "commandDone": "Listo. La acción terminó.",
+    "commandFailed": "No pude completar la acción. Te mostraré el motivo.",
+    "needConfirmation": "Necesito tu confirmación antes de continuar.",
+    "cancelled": "Acción cancelada.",
+    "languageModelMissing": "El modelo de español de TEUW no está instalado. Descárgalo desde Ajustes de idioma.",
+    "offline": "Estoy trabajando sin conexión a internet.",
+    "unsupported": "Esta orden todavía no está disponible en este paquete."
+  },
+  "ui": {
+    "languageName": "Idioma de J.A.R.V.I.S.",
+    "packsTitle": "Paquetes de idioma de TEUW",
+    "download": "Descargar paquete",
+    "installed": "Instalado",
+    "notInstalled": "No instalado",
+    "remove": "Eliminar paquete",
+    "verify": "Verificando paquete",
+    "downloading": "Descargando paquete",
+    "modelTitle": "Modelo de reconocimiento sin conexión",
+    "modelDownload": "Descargar modelo",
+    "modelReady": "Modelo instalado",
+    "modelMissing": "Modelo no instalado"
+  },
+  "commandMatching": {
+    "ignoreAccents": true,
+    "caseInsensitive": true,
+    "normalizeRepeatedWhitespace": true,
+    "requiresWakePhraseForBackgroundCommands": true
+  }
+}
