@@ -145,7 +145,12 @@
     "notHeard": "I didn't hear you.",
     "confirmationPrompt": "Requested operation: {{title}}. {{message}}. Say yes to continue or no to cancel.",
     "choicePrompt": "{{title}}. {{options}}. Say the name or the number.",
-    "batteryUnavailable": "I couldn't read the battery percentage."
+    "batteryUnavailable": "I couldn't read the battery percentage.",
+    "openTeuwToConfirm": "Open TEUW and confirm this operation in the app.",
+    "openTeuwToContinue": "Open TEUW to continue this action.",
+    "tapToScreenshot": "Tap to open Android's permission screen and save a screenshot.",
+    "tapToRecord": "Tap to approve silent screen recording.",
+    "tapToStopRecording": "Tap to request that screen recording stop."
   },
   "ui": {
     "languageName": "J.A.R.V.I.S. language",
