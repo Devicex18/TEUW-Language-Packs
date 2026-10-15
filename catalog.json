@@ -10,11 +10,11 @@
       "version": "1.0.0",
       "displayName": "Español (México)",
       "url": "https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/es-MX/pack.json",
-      "sha256": "b3fd349f43e9990c418b57c965b6e86629e4fa07b79d4b20b442052e89fea0a7",
-      "sizeBytes": 3836,
+      "sha256": "eed53e9bf0ca2b93b11dfc08e72df2f34da6da1752393b14fcfd015c026a8315",
+      "sizeBytes": 3872,
       "recognitionModelId": "vosk-model-small-es-0.42",
-      "modelStatus": "awaiting_first_github_release",
-      "modelSizeApproxBytes": 39000000,
+      "modelStatus": "available_github_release",
+      "modelSizeBytes": 39817833,
       "modelLicense": "Apache-2.0"
     },
     {
@@ -22,11 +22,11 @@
       "version": "1.0.0",
       "displayName": "English (United States)",
       "url": "https://raw.githubusercontent.com/Devicex18/TEUW-Language-Packs/main/packs/en-US/pack.json",
-      "sha256": "6fff7a743bd676d1a8f38e923264808bce32a463d4cb735c1bb926f77c4acf0e",
-      "sizeBytes": 3639,
+      "sha256": "f23821eee994194d4178a3946e8934a25f82e1c711c15fe494b73eea3f70e34f",
+      "sizeBytes": 3675,
       "recognitionModelId": "vosk-model-small-en-us-0.15",
-      "modelStatus": "awaiting_first_github_release",
-      "modelSizeApproxBytes": 40000000,
+      "modelStatus": "available_github_release",
+      "modelSizeBytes": 41205931,
       "modelLicense": "Apache-2.0"
     }
   ]

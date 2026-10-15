@@ -19,12 +19,12 @@
     "engine": "vosk-android",
     "modelId": "vosk-model-small-es-0.42",
     "archiveUrl": "https://github.com/Devicex18/TEUW-Language-Packs/releases/download/language-models-v1.0.0/vosk-model-small-es-0.42.zip",
-    "archiveSha256": "PENDING_FIRST_MODEL_PUBLISH",
-    "archiveSizeBytes": null,
+    "archiveSha256": "09b239888f633ef2f0b4e09736e3d9936acfd810bc65d53fad45261762c6511f",
+    "archiveSizeBytes": 39817833,
     "sourceUrl": "https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip",
     "sourceLicense": "Apache-2.0",
     "modelAttribution": "Vosk small Spanish model; see MODEL-SOURCES.md",
-    "distributionStatus": "awaiting_first_github_release"
+    "distributionStatus": "available_github_release"
   },
   "commands": {
     "open_application": [
