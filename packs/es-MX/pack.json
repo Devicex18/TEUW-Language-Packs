@@ -92,6 +92,64 @@
       "no",
       "cancelar",
       "rechazar"
+    ],
+    "get_memory_status": [
+      "cuánta memoria ram tengo",
+      "cuánta ram queda",
+      "dime la ram libre",
+      "consulta la memoria ram"
+    ],
+    "get_display_status": [
+      "qué frecuencia tiene mi pantalla",
+      "dime los hz de la pantalla",
+      "consulta frecuencia de pantalla"
+    ],
+    "get_thermal_status": [
+      "qué temperatura tiene el teléfono",
+      "consulta temperatura del teléfono",
+      "dime el estado térmico",
+      "revisa la temperatura"
+    ],
+    "get_torch_status": [
+      "estado de la linterna",
+      "la linterna está encendida",
+      "consulta la linterna"
+    ],
+    "read_access": [
+      "tengo root",
+      "revisa el acceso root",
+      "shizuku está autorizado",
+      "consulta root y shizuku"
+    ],
+    "get_installed_apps": [
+      "cuántas aplicaciones tengo",
+      "lista aplicaciones instaladas",
+      "consulta aplicaciones instaladas",
+      "dime cuántas apps hay"
+    ],
+    "analyze_device": [
+      "analiza el dispositivo",
+      "diagnostica el teléfono",
+      "revisa el dispositivo",
+      "haz un diagnóstico del teléfono"
+    ],
+    "optimize_device": [
+      "optimiza el teléfono",
+      "optimiza mi dispositivo",
+      "mejora el rendimiento",
+      "optimiza el dispositivo"
+    ],
+    "uninstall_application": [
+      "desinstala {app}",
+      "elimina la aplicación {app}"
+    ],
+    "enable_gaming_mode": [
+      "activa el modo gamer",
+      "activa el modo de juego"
+    ],
+    "disable_gaming_mode": [
+      "desactiva el modo gamer",
+      "desactiva el modo de juego"
     ]
   },
   "responses": {
@@ -153,7 +211,13 @@
     "openTeuwToContinue": "Abre TEUW para continuar con la acción.",
     "tapToScreenshot": "Toca para abrir el permiso de Android y guardar una captura.",
     "tapToRecord": "Toca para aprobar la grabación de pantalla sin audio.",
-    "tapToStopRecording": "Toca para enviar la solicitud de detener la grabación."
+    "tapToStopRecording": "Toca para enviar la solicitud de detener la grabación.",
+    "torchStateOn": "La linterna está encendida.",
+    "torchStateOff": "La linterna está apagada.",
+    "optimizing": "Preparando el análisis y optimización del dispositivo.",
+    "analyzeDevice": "Preparando el diagnóstico del dispositivo.",
+    "uninstallConfirmation": "Voy a solicitar desinstalar {{app}}. Android puede pedirte confirmar.",
+    "commandNotAvailable": "Esta orden todavía no está disponible en este paquete de idioma."
   },
   "ui": {
     "languageName": "Idioma de J.A.R.V.I.S.",
