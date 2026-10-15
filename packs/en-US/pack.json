@@ -137,7 +137,15 @@
     "chooseApp": "Choose an app.",
     "noAppChosen": "You didn't choose an app.",
     "gameModeUnsupported": "Android does not expose a universal control for a normal app to enable another app's game mode. I won't pretend it was enabled.",
-    "genericFailure": "I couldn't complete the command. {{reason}}"
+    "genericFailure": "I couldn't complete the command. {{reason}}",
+    "assistantDisabled": "The assistant is disabled.",
+    "microphonePermission": "I need microphone permission to continue.",
+    "languagePackMissing": "The TEUW language pack is not installed. Open Settings, select TEUW Language Packs, and download the selected language.",
+    "initialGreeting": "Yes, I'm listening.",
+    "notHeard": "I didn't hear you.",
+    "confirmationPrompt": "Requested operation: {{title}}. {{message}}. Say yes to continue or no to cancel.",
+    "choicePrompt": "{{title}}. {{options}}. Say the name or the number.",
+    "batteryUnavailable": "I couldn't read the battery percentage."
   },
   "ui": {
     "languageName": "J.A.R.V.I.S. language",
